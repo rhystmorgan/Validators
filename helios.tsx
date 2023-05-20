@@ -50,6 +50,9 @@ const sDeposit = async () => {
 
       for ( let i=0; i<valUtxos.length; i++ ) {
         const curr = valUtxos[i]
+          if (!curr.datum) {
+            curr.datum = await lucid.datumOf(curr)
+          }
         const pDatum : Constr <Data> = Data.from(curr.datum!)
 
         if (pDatum.fields[0] === BigInt(24)) {
@@ -102,6 +105,11 @@ const sDeposit = async () => {
   
         for ( let i=0; i<valUtxos.length; i++ ) {
           const curr = valUtxos[i]
+
+          if (!curr.datum) {
+            curr.datum = await lucid.datumOf(curr)
+          }
+                                          
           const pDatum = Data.from<PasswordDatum>(curr.datum!, PasswordDatum)
   
           if (pDatum.password == BigInt(25)) {
