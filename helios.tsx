@@ -51,6 +51,9 @@ const sDeposit = async () => {
       for ( let i=0; i<valUtxos.length; i++ ) {
         const curr = valUtxos[i]
           if (!curr.datum) {
+            if (!curr.datumHash) {
+              continue;
+            }
             curr.datum = await lucid.datumOf(curr)
           }
         const pDatum : Constr <Data> = Data.from(curr.datum!)
@@ -107,6 +110,9 @@ const sDeposit = async () => {
           const curr = valUtxos[i]
 
           if (!curr.datum) {
+            if (!curr.datumHash) {
+              continue;
+            }
             curr.datum = await lucid.datumOf(curr)
           }
                                           
